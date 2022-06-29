@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Trispace", sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  width: 50vw;
+  height: 75vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.result {
+  width: 50vw;
+  height: 10vh;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  height: 65vh;
+  width: 50vw;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#zero {
+  grid-column-start: 1;
+  grid-row-start: 5;
+  grid-column: span 2;
+}
+
+#decimal {
+  grid-column-start: 3;
+  grid-row-start: 5;
+}
+
+#one {
+  grid-column-start: 1;
+  grid-row-start: 4;
+}
+
+#two {
+  grid-column-start: 2;
+  grid-row-start: 4;
+}
+
+#three {
+  grid-column-start: 3;
+  grid-row-start: 4;
+}
+
+#plus {
+  grid-column-start: 4;
+  grid-row-start: 4;
+}
+
+#four {
+  grid-column-start: 1;
+  grid-row-start: 3;
+}
+
+#five {
+  grid-column-start: 2;
+  grid-row-start: 3;
+}
+
+#six {
+  grid-column-start: 3;
+  grid-row-start: 3;
+}
+
+#minus {
+  grid-column-start: 4;
+  grid-row-start: 3;
+}
+
+#seven {
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+
+#eight {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+#nine {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+#multiply {
+  grid-column-start: 4;
+  grid-row-start: 2;
+}
+
+#AC {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+#positiveNegative {
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+#percent {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+#divide {
+  grid-column-start: 4;
+  grid-row-start: 1;
+}
+
+button#seven {
+  width: 100%;
+  height: 100%;
+}
+
+.numbers {
+  /* outline: 1px solid; */
+  /* border: 1px solid; */
+}
