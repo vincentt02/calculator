@@ -144,8 +144,8 @@ button#seven,
 #percent,
 #divide,
 #multiply,
-#minus,
-#plus,
+#subtract,
+#add,
 #zero,
 #decimal,
 #equal {
@@ -157,4 +157,11 @@ button#seven,
 .numbers {
   /* outline: 1px solid; */
   /* border: 1px solid; */
+}
+
+#display {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 3vw;
+  overflow: scroll; /* so that text doesnt overflow out of the display box */
 }
