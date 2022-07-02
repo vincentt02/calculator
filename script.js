@@ -46,13 +46,14 @@ let operatorToPerform = "";
 
 const displayDiv = document.getElementById("display");
 const updateDisplayedNumber = () => {
+  console.log("updated number");
   displayDiv.innerHTML = Number(currNumber);
 };
 
 const takeInput = () => {
   // console.log(Number(event.target.innerHTML));
   if (operatorToPerform == "") {
-    clear();
+    clearAll();
   }
   if (firstInput && event.target.innerHTML == ".") {
     //if the first input is a decimal keep the 0 in front
@@ -83,7 +84,7 @@ const takeInput = () => {
 const takeInputKeyboard = (num) => {
   // console.log(Number(event.target.innerHTML));
   if (operatorToPerform == "") {
-    clear();
+    clearAll();
   }
   if (firstInput && num == ".") {
     //if the first input is a decimal keep the 0 in front
@@ -125,7 +126,7 @@ const saveSecondNumber = () => {
   firstInput = true;
 };
 
-const clear = () => {
+const clearAll = () => {
   currNumber = "0";
   updateDisplayedNumber();
   firstInput = true;
@@ -172,30 +173,33 @@ const equate = () => {
   }
   saveSecondNumber();
   console.log(firstNumber + " " + secondNumber);
-
+  console.log(operatorToPerform + firstNumber + secondNumber);
   result = operate(operatorToPerform, firstNumber, secondNumber);
   console.log(result);
-  currNumber = result;
-  firstNumber = result; //set firstNumber to the result so that you can do more equations on top
+  currNumber = Number(result);
+  firstNumber = Number(result); //set firstNumber to the result so that you can do more equations on top
   operatorToPerform = "";
   updateDisplayedNumber();
 };
 
+const backspace = () => {
+  currNumber = String(currNumber).slice(0, -1);
+  console.log("backspace new number " + currNumber);
+  if (currNumber == "-") {
+    currNumber = 0;
+    firstNumber = 0;
+  }
+  updateDisplayedNumber();
+};
+
 const changeSign = () => {
-  // if (Math.sign(currNumber) == 1) {
-  //   console.log("positive");
-  //   currNumber = currNumber * -1;
-  // } else if (Math.sign(currNumber) == -1) {
-  //   currNumber = currNumber * -1;
-  //   console.log("negative");
-  // }
   currNumber = currNumber * -1;
   firstNumber = currNumber;
   updateDisplayedNumber();
 };
 
 const clearBtn = document.getElementById("AC");
-clearBtn.addEventListener("click", clear);
+clearBtn.addEventListener("click", clearAll);
 const divideBtn = document.getElementById("divide");
 divideBtn.addEventListener("click", takeOperator);
 const multiplyBtn = document.getElementById("multiply");
@@ -284,6 +288,9 @@ window.addEventListener("keydown", (e) => {
       break;
     case "Enter":
       equate();
+      break;
+    case "Backspace":
+      backspace();
       break;
   }
 });

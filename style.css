@@ -159,6 +159,8 @@ button#seven,
   /* border: 1px solid; */
 }
 
+
+
 #display {
   display: flex;
   flex-direction: row-reverse;
