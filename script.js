@@ -46,7 +46,6 @@ let operatorToPerform = "";
 
 const displayDiv = document.getElementById("display");
 const updateDisplayedNumber = () => {
-  console.log("updated number");
   displayDiv.innerHTML = Number(currNumber);
 };
 
@@ -55,14 +54,11 @@ const takeInput = () => {
   if (operatorToPerform == "") {
     clearAll();
   }
-  if (firstInput && event.target.innerHTML == ".") {
-    //if the first input is a decimal keep the 0 in front
-    currNumber = currNumber + event.target.innerHTML;
-    updateDisplayedNumber();
-    firstInput = false;
-    return;
-  }
-  if (firstInput && event.target.innerHTML == "0" && firstNumber == null) {
+  if (
+    firstInput &&
+    Number(event.target.innerHTML) == "0" &&
+    firstNumber == null
+  ) {
     //if its the first input and the user trys to input a 0 do nothing
     return;
   }
@@ -71,27 +67,14 @@ const takeInput = () => {
     currNumber = "";
     firstInput = false;
   }
-  if (event.target.innerHTML == "." && currNumber.includes(".")) {
-    //if there is already a decimal and the user tries to input a decimal do nothing
-    return;
-  }
 
-  currNumber = currNumber + event.target.innerHTML;
-  console.log(currNumber);
+  currNumber = currNumber + Number(event.target.innerHTML);
   updateDisplayedNumber();
 };
 
 const takeInputKeyboard = (num) => {
-  // console.log(Number(event.target.innerHTML));
   if (operatorToPerform == "") {
     clearAll();
-  }
-  if (firstInput && num == ".") {
-    //if the first input is a decimal keep the 0 in front
-    currNumber = currNumber + num;
-    updateDisplayedNumber();
-    firstInput = false;
-    return;
   }
   if (firstInput && num == "0" && firstNumber == null) {
     //if its the first input and the user trys to input a 0 do nothing
@@ -102,13 +85,7 @@ const takeInputKeyboard = (num) => {
     currNumber = "";
     firstInput = false;
   }
-  if (num == "." && currNumber.includes(".")) {
-    //if there is already a decimal and the user tries to input a decimal do nothing
-    return;
-  }
-
   currNumber = currNumber + num;
-  console.log("keyboard input " + num);
   updateDisplayedNumber();
 };
 
@@ -141,26 +118,22 @@ const takeOperator = () => {
   if (!firstOperator) {
     equate();
     operatorToPerform = event.target.id;
-    console.log(operatorToPerform);
     return;
   }
   saveFirstNumber();
   operatorToPerform = event.target.id;
   firstOperator = false;
-  console.log(operatorToPerform);
 };
 
 const takeOperatorKeyboard = (operator) => {
   if (!firstOperator) {
     equate();
     operatorToPerform = operator;
-    console.log(operatorToPerform);
     return;
   }
   saveFirstNumber();
   operatorToPerform = operator;
   firstOperator = false;
-  console.log(operatorToPerform);
 };
 
 const equate = () => {
@@ -172,10 +145,12 @@ const equate = () => {
     return;
   }
   saveSecondNumber();
-  console.log(firstNumber + " " + secondNumber);
-  console.log(operatorToPerform + firstNumber + secondNumber);
   result = operate(operatorToPerform, firstNumber, secondNumber);
-  console.log(result);
+  if (result == "cannot divide by 0") {
+    operatorToPerform = "";
+    displayDiv.innerHTML = "cannot divide by 0";
+    return;
+  }
   currNumber = Number(result);
   firstNumber = Number(result); //set firstNumber to the result so that you can do more equations on top
   operatorToPerform = "";
@@ -184,7 +159,6 @@ const equate = () => {
 
 const backspace = () => {
   currNumber = String(currNumber).slice(0, -1);
-  console.log("backspace new number " + currNumber);
   if (currNumber == "-") {
     currNumber = 0;
     firstNumber = 0;
@@ -198,6 +172,23 @@ const changeSign = () => {
   updateDisplayedNumber();
 };
 
+const decimal = () => {
+  if (currNumber.includes(".")) {
+    //if there is already a decimal and the user tries to input a decimal do nothing
+    return;
+  }
+  if (firstInput) {
+    //if the first input is a decimal keep the 0 in the front
+    currNumber = currNumber + ".";
+    updateDisplayedNumber();
+    firstInput = false;
+    return;
+  }
+
+  currNumber = currNumber + ".";
+  updateDisplayedNumber();
+};
+
 const clearBtn = document.getElementById("AC");
 clearBtn.addEventListener("click", clearAll);
 
@@ -206,6 +197,9 @@ equalBtn.addEventListener("click", equate);
 
 const changeSignBtn = document.getElementById("positiveNegative");
 changeSignBtn.addEventListener("click", changeSign);
+
+const decimalBtn = document.getElementById("decimal");
+decimalBtn.addEventListener("click", decimal);
 
 document.querySelectorAll(".button_numbers").forEach((item) => {
   item.addEventListener("click", takeInput);
@@ -251,7 +245,7 @@ window.addEventListener("keydown", (e) => {
       takeInputKeyboard(0);
       break;
     case ".":
-      takeInputKeyboard(".");
+      decimal();
       break;
     case "+":
       takeOperatorKeyboard("add");
