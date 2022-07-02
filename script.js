@@ -80,6 +80,37 @@ const takeInput = () => {
   updateDisplayedNumber();
 };
 
+const takeInputKeyboard = (num) => {
+  // console.log(Number(event.target.innerHTML));
+  if (operatorToPerform == "") {
+    clear();
+  }
+  if (firstInput && num == ".") {
+    //if the first input is a decimal keep the 0 in front
+    currNumber = currNumber + num;
+    updateDisplayedNumber();
+    firstInput = false;
+    return;
+  }
+  if (firstInput && num == "0" && firstNumber == null) {
+    //if its the first input and the user trys to input a 0 do nothing
+    return;
+  }
+  if (firstInput) {
+    //removes the starter 0 and sets firstInput to false
+    currNumber = "";
+    firstInput = false;
+  }
+  if (num == "." && currNumber.includes(".")) {
+    //if there is already a decimal and the user tries to input a decimal do nothing
+    return;
+  }
+
+  currNumber = currNumber + num;
+  console.log("keyboard input " + num);
+  updateDisplayedNumber();
+};
+
 const saveFirstNumber = () => {
   firstNumber = Number(currNumber); //save the currentNumber to firstNumber
   // currNumber = "0"; //reset the display
@@ -114,6 +145,19 @@ const takeOperator = () => {
   }
   saveFirstNumber();
   operatorToPerform = event.target.id;
+  firstOperator = false;
+  console.log(operatorToPerform);
+};
+
+const takeOperatorKeyboard = (operator) => {
+  if (!firstOperator) {
+    equate();
+    operatorToPerform = operator;
+    console.log(operatorToPerform);
+    return;
+  }
+  saveFirstNumber();
+  operatorToPerform = operator;
   firstOperator = false;
   console.log(operatorToPerform);
 };
@@ -187,5 +231,61 @@ const decimalBtn = document.getElementById("decimal");
 decimalBtn.addEventListener("click", takeInput);
 const changeSignBtn = document.getElementById("positiveNegative");
 changeSignBtn.addEventListener("click", changeSign);
+
+window.addEventListener("keydown", (e) => {
+  if (e.defaultPrevented) {
+    return;
+  }
+  switch (e.key) {
+    case "1":
+      takeInputKeyboard(1);
+      break;
+    case "2":
+      takeInputKeyboard(2);
+      break;
+    case "3":
+      takeInputKeyboard(3);
+      break;
+    case "4":
+      takeInputKeyboard(4);
+      break;
+    case "5":
+      takeInputKeyboard(5);
+      break;
+    case "6":
+      takeInputKeyboard(6);
+      break;
+    case "7":
+      takeInputKeyboard(7);
+      break;
+    case "8":
+      takeInputKeyboard(8);
+      break;
+    case "9":
+      takeInputKeyboard(9);
+      break;
+    case "0":
+      takeInputKeyboard(0);
+      break;
+    case ".":
+      takeInputKeyboard(".");
+      break;
+    case "+":
+      takeOperatorKeyboard("add");
+      break;
+    case "-":
+      takeOperatorKeyboard("subtract");
+      break;
+    case "*":
+      takeOperatorKeyboard("multiply");
+      break;
+    case "/":
+      takeOperatorKeyboard("divide");
+      break;
+    case "Enter":
+      equate();
+      break;
+  }
+});
 
 updateDisplayedNumber();
