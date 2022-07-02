@@ -200,41 +200,20 @@ const changeSign = () => {
 
 const clearBtn = document.getElementById("AC");
 clearBtn.addEventListener("click", clearAll);
-const divideBtn = document.getElementById("divide");
-divideBtn.addEventListener("click", takeOperator);
-const multiplyBtn = document.getElementById("multiply");
-multiplyBtn.addEventListener("click", takeOperator);
-const subtractBtn = document.getElementById("subtract");
-subtractBtn.addEventListener("click", takeOperator);
-const addBtn = document.getElementById("add");
-addBtn.addEventListener("click", takeOperator);
+
 const equalBtn = document.getElementById("equal");
 equalBtn.addEventListener("click", equate);
 
-const zeroBtn = document.getElementById("zero");
-zeroBtn.addEventListener("click", takeInput);
-const oneBtn = document.getElementById("one");
-oneBtn.addEventListener("click", takeInput);
-const twoBtn = document.getElementById("two");
-twoBtn.addEventListener("click", takeInput);
-const threeBtn = document.getElementById("three");
-threeBtn.addEventListener("click", takeInput);
-const fourBtn = document.getElementById("four");
-fourBtn.addEventListener("click", takeInput);
-const fiveBtn = document.getElementById("five");
-fiveBtn.addEventListener("click", takeInput);
-const sixBtn = document.getElementById("six");
-sixBtn.addEventListener("click", takeInput);
-const sevenBtn = document.getElementById("seven");
-sevenBtn.addEventListener("click", takeInput);
-const eightBtn = document.getElementById("eight");
-eightBtn.addEventListener("click", takeInput);
-const nineBtn = document.getElementById("nine");
-nineBtn.addEventListener("click", takeInput);
-const decimalBtn = document.getElementById("decimal");
-decimalBtn.addEventListener("click", takeInput);
 const changeSignBtn = document.getElementById("positiveNegative");
 changeSignBtn.addEventListener("click", changeSign);
+
+document.querySelectorAll(".button_numbers").forEach((item) => {
+  item.addEventListener("click", takeInput);
+});
+
+document.querySelectorAll(".button_operators").forEach((item) => {
+  item.addEventListener("click", takeOperator);
+});
 
 window.addEventListener("keydown", (e) => {
   if (e.defaultPrevented) {

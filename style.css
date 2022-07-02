@@ -33,7 +33,7 @@
   width: 50vw;
 }
 
-.button {
+.button, .button_numbers, .button_operators{
   display: flex;
   align-items: center;
   justify-content: center;
